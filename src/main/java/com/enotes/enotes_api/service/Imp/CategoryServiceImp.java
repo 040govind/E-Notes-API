@@ -2,6 +2,7 @@ package com.enotes.enotes_api.service.Imp;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public List<CategoryDto> getAllCategory() {
-        List<Category> categories = categoryRepo.findAll();
+        List<Category> categories = categoryRepo.findByIsDeletedFalse();
 
         List<CategoryDto> categoryDtoList = categories.stream().map(cat -> mapper.map(cat, CategoryDto.class)).toList();
 
@@ -56,6 +57,30 @@ public class CategoryServiceImp implements CategoryService {
         List<CategoryResponse> categoryList = categories.stream().map(cat -> mapper.map(cat, CategoryResponse.class))
                 .toList();
         return categoryList;
+    }
+
+    @Override
+    public CategoryDto getCategoryById(Integer id) {
+        Optional<Category> findCategory = categoryRepo.findByIdAndIsDeletedFalse(id);
+        if(findCategory.isPresent()){
+            Category category = findCategory.get();
+            return mapper.map(category,CategoryDto.class);
+
+        }
+        return null;
+    }
+
+    @Override
+    public Boolean deleteCategorytById(Integer id) {
+        Optional<Category> findCategory = categoryRepo.findById(id);
+        if(findCategory.isPresent()){
+            Category category = findCategory.get();
+            category.setIsDeleted(true);
+            categoryRepo.save(category);
+            return true;
+
+        }
+        return false;
     }
 
 }
