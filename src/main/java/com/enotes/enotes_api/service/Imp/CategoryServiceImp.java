@@ -12,6 +12,7 @@ import org.springframework.util.ObjectUtils;
 import com.enotes.enotes_api.dto.CategoryDto;
 import com.enotes.enotes_api.dto.CategoryResponse;
 import com.enotes.enotes_api.entity.Category;
+import com.enotes.enotes_api.exception.ResourceNotFoundException;
 import com.enotes.enotes_api.repositary.CategoryRepositary;
 import com.enotes.enotes_api.service.CategoryService;
 
@@ -77,14 +78,15 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public CategoryDto getCategoryById(Integer id) {
-        Optional<Category> findCategory = categoryRepo.findByIdAndIsDeletedFalse(id);
-        if(findCategory.isPresent()){
-            Category category = findCategory.get();
-            return mapper.map(category,CategoryDto.class);
+    public CategoryDto getCategoryById(Integer id) throws Exception {
+        Category category = categoryRepo.findByIdAndIsDeletedFalse(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Category not found with id=" + id));
 
-        }
-        return null;
+		if (!ObjectUtils.isEmpty(category)) {
+			category.getName().toUpperCase();
+			return mapper.map(category, CategoryDto.class);
+		}
+		return null;
     }
 
     @Override
