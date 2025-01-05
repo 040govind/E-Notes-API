@@ -18,6 +18,9 @@ import com.enotes.enotes_api.dto.CategoryDto;
 import com.enotes.enotes_api.dto.CategoryResponse;
 import com.enotes.enotes_api.entity.Category;
 import com.enotes.enotes_api.service.CategoryService;
+
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/category")
 public class CategoryController {
@@ -59,12 +62,12 @@ public class CategoryController {
 	}
 
 	@GetMapping("/{id}")
-    public ResponseEntity<?>  getCategortDetailsById(@PathVariable Integer id){
-        CategoryDto categoryDto = categoryService.getCategoryById(id);
-		if(ObjectUtils.isEmpty(categoryDto)){
-			return new ResponseEntity<>("Category details not find by ID"+id,HttpStatus.NOT_FOUND);
+    public ResponseEntity<?>  getCategortDetailsById(@PathVariable Integer id) throws Exception {
+		CategoryDto categoryDto = categoryService.getCategoryById(id);
+		if (ObjectUtils.isEmpty(categoryDto)) {
+			return new ResponseEntity<>("Internal Server Error", HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(categoryDto,HttpStatus.OK);
+		return new ResponseEntity<>(categoryDto, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{id}")
