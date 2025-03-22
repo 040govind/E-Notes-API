@@ -9,9 +9,9 @@ import org.springframework.util.ObjectUtils;
 import com.enotes.enotes_api.dto.CategoryDto;
 import com.enotes.enotes_api.dto.TodoDto;
 import com.enotes.enotes_api.dto.TodoDto.StatusDto;
+import com.enotes.enotes_api.enums.TodoStatus;
 import com.enotes.enotes_api.exception.ResourceNotFoundException;
 import com.enotes.enotes_api.exception.ValidationException;
-import com.enotes.enums.TodoStatus;
 
 @Component
 public class Validation {

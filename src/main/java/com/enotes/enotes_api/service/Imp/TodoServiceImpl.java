@@ -10,11 +10,11 @@ import org.springframework.util.ObjectUtils;
 import com.enotes.enotes_api.dto.TodoDto;
 import com.enotes.enotes_api.dto.TodoDto.StatusDto;
 import com.enotes.enotes_api.entity.Todo;
+import com.enotes.enotes_api.enums.TodoStatus;
 import com.enotes.enotes_api.exception.ResourceNotFoundException;
 import com.enotes.enotes_api.repositary.TodoRepository;
 import com.enotes.enotes_api.service.TodoService;
 import com.enotes.enotes_api.util.Validation;
-import com.enotes.enums.TodoStatus;
 
 @Service
 public class TodoServiceImpl implements TodoService {

@@ -1,4 +1,4 @@
-package com.schdular;
+package com.enotes.enotes_api.schdular;
 import java.time.LocalDateTime;
 import java.util.List;
 
