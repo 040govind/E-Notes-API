@@ -1,7 +1,7 @@
 package com.enotes.enotes_api.dto;
 
 import java.util.Date;
-
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +29,9 @@ public class NotesDto {
 
 	private Date updatedOn;
 	private FilesDto fileDetails;
+	private Boolean isDeleted;
+
+	private LocalDateTime deletedOn;
 
 	@Getter
 	@Setter

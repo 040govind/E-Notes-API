@@ -1,43 +1,33 @@
 package com.enotes.enotes_api.entity;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import java.util.Date;
-import java.time.LocalDateTime;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Builder;
 
-@Builder
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-public class Notes extends BaseModel {
+@Builder
+public class Todo extends BaseModel {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
 
-	private String title;
+    private String title;
 
-	private String description;
-
-	@ManyToOne
-	private Category category;
-	
-	@ManyToOne
-	private FileDetails fileDetails;
-	private Boolean isDeleted;
-	private LocalDateTime deletedOn;
-
+    @Column(name="status")
+    private Integer statusId;
 }
