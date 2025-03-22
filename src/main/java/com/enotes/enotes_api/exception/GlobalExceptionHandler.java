@@ -1,4 +1,5 @@
 package com.enotes.enotes_api.exception;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import org.springframework.http.HttpStatus;
@@ -66,5 +67,10 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(FileNotFoundException.class)
+	public ResponseEntity<?> handleFileNotFoundException(FileNotFoundException e) {
+//		return new ResponseEntity<>(e.getErrors(), HttpStatus.BAD_REQUEST);
+		return CommonUtil.createErrorResponse(e.getMessage(), HttpStatus.NOT_FOUND);
+	}
 
 }
